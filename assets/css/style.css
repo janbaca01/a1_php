@@ -1,0 +1,44 @@
+/**
+* Imports
+*/
+/**
+* Default settings
+*/
+/**
+* General
+*/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #e3ece8 !important;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+  color: #292626 !important;
+}
+
+.container {
+  background-color: #e3ece8;
+}
+
+/**
+* Header
+*/
+header {
+  height: 40vh;
+  margin-top: 2em !important;
+  background-color: rgb(26, 171, 104);
+}
+
+h1 {
+  font-size: 4em !important;
+}
+
+h2 {
+  font-size: 1.5em !important;
+}
+
+/*# sourceMappingURL=style.css.map */

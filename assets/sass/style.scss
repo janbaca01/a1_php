@@ -1,0 +1,23 @@
+/**
+* Imports
+*/
+@import "variables";
+@import "general";
+
+/**
+* Header
+*/
+
+header {
+  height: 40vh;
+  margin-top: 2em !important;
+  background-color: rgb(26, 171, 104);
+}
+
+h1 {
+  font-size: 4em !important;
+}
+
+h2 {
+  font-size: 1.5em !important;
+}
