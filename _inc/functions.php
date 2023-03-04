@@ -14,15 +14,80 @@ function vendor ( $path, $base = BASE_URL.'/_inc/vendor/')
     return filter_var( $base.$path, FILTER_SANITIZE_URL );
 }
 
-function makeFile($time, $delay) {
-    if ($delay === 'Meškanie') {
-        $time_json = json_encode(array('time' => $time->format('Y-m-d H:i:s'), 'delay' => $delay)) . PHP_EOL;
+/**
+ * *Vytvára JSON súbor s časom príchodu a ak sa jedná o meškanie
+ * doplní do poľa "deley"
+ *
+ * @param DateTime $time - čas príchodu
+ * @param boolean $delay - indikátor meškania
+ * @return string - text na základe úspešného/neúspešného zápisu do súboru
+ */
+function setTimeToFile($time, $delay) {
+
+    // $deley sa overuje mimo funkcie posiela sa ako parameter do vnútra funkcie
+    if ($delay == true) {
+        $time_json = json_encode([
+            'time'  => $time->format('Y-m-d H:i:s'),
+            'delay' => 'Meškanie'
+        ]) .PHP_EOL;
+        $message = 'Tvoj príchod na hodinu bol uložený! Ale meškáš.';
     } else {
-        $time_json = json_encode(array('time' => $time->format('Y-m-d H:i:s'))) . PHP_EOL;
+        $time_json = json_encode([
+            'time'  => $time->format('Y-m-d H:i:s')
+        ]) .PHP_EOL;
+        $message = 'Tvoj príchod na hodinu bol uložený! Prišiel si načas.';
     }
-    file_put_contents('current_time.json', $time_json, FILE_APPEND);    
-    echo 'Tvoj príchod na hodinu bol uložený!';
+    
+    // zápis do súboru
+    $result = file_put_contents('current_time.json', $time_json, FILE_APPEND);
+
+    // spúšťa sa ak sa nepodarí zápis do logu
+    if ($result === false) {
+        $message = 'Chyba pri zápise súboru!';
+    }
+    
+    return $message;
 }
+
+
+
+function getLogs() {
+    $file = 'current_time.json';
+    // Získa obsah súboru
+    $file_contents = file_get_contents($file);
+
+    // Dekóduje JSON na asoc. pole
+    $data = json_decode($file_contents, true);
+
+    // Ak sa podarilo dekódovať JSON súbor, pokračuje výpisom záznamov
+    if ($data !== null) {
+        // Prechádza cez všetky záznamy v poli $data
+        foreach ($data as $entry) {
+            // Skontroluje, či existuje index 'time' v poli $entry
+            if (isset($entry['time'])) {
+                // Vypíše čas
+                echo 'Čas: ' . $entry['time'] . '<br>';
+            }
+
+            // Skontroluje, či existuje index 'delay' v poli $entry
+            if (isset($entry['delay'])) {
+                // Vypíše meškanie
+                echo 'Meškanie: ' . $entry['delay'] . '<br>';
+            }
+
+            // Vypíše oddelovač
+            echo '--------------------------<br>';
+        }
+    } else {
+        // Ak sa nepodarilo dekódovať JSON súbor, vypíše chybu
+        echo 'Nepodarilo sa získať záznamy.<br>';
+    }
+}
+
+
+
+
+
 
 
 // sprav logovac prichodov studentov

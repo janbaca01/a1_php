@@ -1,4 +1,6 @@
 <?php 
+date_default_timezone_set('Europe/Bratislava');
+
 
 // show all errors
 ini_set('displeay_startup_errors', 'On');
