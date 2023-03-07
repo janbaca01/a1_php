@@ -18,71 +18,85 @@ function vendor ( $path, $base = BASE_URL.'/_inc/vendor/')
  * *Vytvára JSON súbor s časom príchodu a ak sa jedná o meškanie
  * doplní do poľa "deley"
  *
- * @param DateTime $time - čas príchodu
+ * @param string $day - dátum príchodu
+ * @param string $current_time - čas príchodu
  * @param boolean $delay - indikátor meškania
  * @return string - text na základe úspešného/neúspešného zápisu do súboru
  */
-function setTimeToFile($time, $delay) {
-
-    // $deley sa overuje mimo funkcie posiela sa ako parameter do vnútra funkcie
-    if ($delay == true) {
-        $time_json = json_encode([
-            'time'  => $time->format('Y-m-d H:i:s'),
-            'delay' => 'Meškanie'
-        ]) .PHP_EOL;
-        $message = 'Tvoj príchod na hodinu bol uložený! Ale meškáš.';
-    } else {
-        $time_json = json_encode([
-            'time'  => $time->format('Y-m-d H:i:s')
-        ]) .PHP_EOL;
-        $message = 'Tvoj príchod na hodinu bol uložený! Prišiel si načas.';
+function setTimeToFile($day, $current_time, $delay) {
+    $arrival = [
+        'arrival' => [
+            [   
+                'day' => $day,
+                'time' => $current_time,
+                'delay' => $delay ? 'Meškanie' : null
+            ]
+        ]
+    ];
+    
+    if ($delay === '') {
+        unset($arrival['arrival'][0]['delay']);
     }
     
+    // načítanie existujúceho obsahu súboru (ak existuje)
+    $current_data = [];
+    if (file_exists('current_time.json')) {
+        $current_data = json_decode(file_get_contents('current_time.json'), true);
+    }
+    
+    // pridanie nového záznamu
+    $current_data[] = $arrival['arrival'][0];
+    
     // zápis do súboru
-    $result = file_put_contents('current_time.json', $time_json, FILE_APPEND);
-
+    $json_data = json_encode($current_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    $result = file_put_contents("current_time.json", $json_data);
     // spúšťa sa ak sa nepodarí zápis do logu
     if ($result === false) {
         $message = 'Chyba pri zápise súboru!';
+    } 
+    // spúšťa sa ak sa podarí zápis do logu
+    else {
+        $message = 'Tvoj príchod na hodinu bol uložený!';
     }
-    
+
     return $message;
 }
 
 
-
+/**
+* Funkcia na získanie záznamov z JSON súboru a ich zobrazenie v tabuľke
+*
+*@return void - funkcia vypisuje HTML kód pre zobrazenie záznamov
+*/
 function getLogs() {
-    $file = 'current_time.json';
-    // Získa obsah súboru
-    $file_contents = file_get_contents($file);
+    $file = file_get_contents('current_time.json');
+    $data = json_decode($file, true);
 
-    // Dekóduje JSON na asoc. pole
-    $data = json_decode($file_contents, true);
-
-    // Ak sa podarilo dekódovať JSON súbor, pokračuje výpisom záznamov
-    if ($data !== null) {
-        // Prechádza cez všetky záznamy v poli $data
-        foreach ($data as $entry) {
-            // Skontroluje, či existuje index 'time' v poli $entry
-            if (isset($entry['time'])) {
-                // Vypíše čas
-                echo 'Čas: ' . $entry['time'] . '<br>';
-            }
-
-            // Skontroluje, či existuje index 'delay' v poli $entry
-            if (isset($entry['delay'])) {
-                // Vypíše meškanie
-                echo 'Meškanie: ' . $entry['delay'] . '<br>';
-            }
-
-            // Vypíše oddelovač
-            echo '--------------------------<br>';
-        }
-    } else {
-        // Ak sa nepodarilo dekódovať JSON súbor, vypíše chybu
-        echo 'Nepodarilo sa získať záznamy.<br>';
+    
+    if (!empty($data)) {
+    echo '<table class="styled-table">';
+    echo '<thead><tr><th>Dátum</th><th>Čas</th><th>Meškanie</th></tr></thead>';
+    echo '<tbody>';
+    foreach ($data as $arrive) {
+        echo '<tr>';
+        echo '<td>' . $arrive['day'] . '</td>';
+        echo '<td>' . $arrive['time'] . '</td>';
+        echo '<td>' . $arrive['delay'] . '</td>';
+        echo '</tr>';
+    }
+    echo '</tbody>';
+    echo '</table>';
+    }  else {
+        // Ak nemáme žiadne záznamy, vypíšeme chybu
+        echo '<table class="styled-table">';
+        echo '<thead><tr><th>Dátum</th><th>Čas</th><th>Meškanie</th></tr></thead>';
+        echo '<tbody>';
+        echo '<tr>';
+        echo '<td>Nepodarilo sa získať záznamy.</td>';
+        echo '</tr>';
     }
 }
+
 
 
 

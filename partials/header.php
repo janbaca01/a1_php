@@ -23,47 +23,27 @@
         <!-- start header -->
 
         <header class="row">
-            <div class="col-9">
+            <div class="col-7 headline">
                 <h1>
                     <?php echo 'Ahoj, študent'?>
                 </h1>
-
-                <p>
-                    <?php echo getLogs(); ?>
-                </p>
-
-
             </div>
-            <div class="col-3">
-                <p>
-                    <?php
-                        //$simulatedTime sa používa len pre testovanie
-                        $simulatedTime = new DateTime();
-                        $simulatedTime->setTimestamp(strtotime("2023-01-01 17:10:00"));
-                        $time = $simulatedTime;
-                        //$time = new DateTime();
+            <div class="col-5">
+                <!-- výpis času -->
+                <div class="row">
+                    <p>Dnes je <?php echo $day = $time->format('l, j. M, Y') ?></p><br>
+                    <p>Aktuálny čas je <?php echo  $current_time = $time->format('H:i:s') ?></p><br>
 
-                        // do premennej $time sa ukladá akutálny čas, podľa časovej zony nastavenej v config.php
-                        //$time = new DateTime();
-
-                        //formátovenie času pre výpis na stránke
-                        $formatted_day = $time->format('l, j. M, Y');
-                        $formatted_time = $time->format('H:i:s');
-                        
-                        // výpis času
-                        echo 'Dnes je ' . $formatted_day;
-                        echo '<br>';
-                        echo 'Aktuálny čas je ' . $formatted_time . '.';
-                        echo '<br><br>';
-
-                        // overenie času príchodu
+                    <!-- overenie času príchodu -->
+                    <p>
+                        <?php
                         // spúšťa sa funkcia die, dalej nepokračuje len sa vráti hláška príchode mimo možnosti uloženia logu
-                        if ($time->format('H:i:s') > '20:00:00' && $time->format('H:i:s') < '23:59:59') {
+                        if ($current_time > '20:00:00' && $current_time < '23:59:59') {
                             $message = 'Je po 20:00, nie je možné zapísať príchod!';
                             die($message);
                         } 
                         // neskorý príchod posiela sa ako parameter do funkcie
-                        elseif ($time->format('H:i:s') > '08:00:00') {
+                        elseif ($current_time > '08:00:00') {
                             $delay = true;
                         } 
                         // príchod načas, posiela sa ako parameter do funkcie
@@ -72,10 +52,11 @@
                         }
 
                         // messages z vnútra funkcie na základe zápisu/neúspešného zápisu, prípadného meškania/príchodu načas
-                        $message = setTimeToFile($time, $delay);
+                        $message = setTimeToFile($day, $current_time, $delay);
                         echo $message;
-                    ?>
-                </p>
+                        ?>
+                    </p>
+                </div>
             </div>
         </header>
 

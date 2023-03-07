@@ -1,11 +1,42 @@
-{ "time": "2023-01-01 17:10:00", "delay": "Me\u0161kanie" }
-{ "time": "2023-01-01 17:10:00", "delay": "Me\u0161kanie" }
-{ "time": "2023-01-01 17:10:00", "delay": "Me\u0161kanie" }
-{ "time": "2023-01-01 17:10:00", "delay": "Me\u0161kanie" }
-{ "time": "2023-01-01 17:10:00", "delay": "Me\u0161kanie" }
-{ "time": "2023-01-01 17:10:00", "delay": "Me\u0161kanie" }
-{"time":"2023-01-01 17:10:00","delay":"Me\u0161kanie"}
-{"time":"2023-01-01 17:10:00","delay":"Me\u0161kanie"}
-{"time":"2023-01-01 17:10:00","delay":"Me\u0161kanie"}
-{"time":"2023-01-01 17:10:00","delay":"Me\u0161kanie"}
-{"time":"2023-01-01 17:10:00","delay":"Me\u0161kanie"}
+[
+    {
+        "day": "Tuesday, 7. Mar, 2023",
+        "time": "16:34:29",
+        "delay": "Meškanie"
+    },
+    {
+        "day": "Tuesday, 7. Mar, 2023",
+        "time": "16:34:31",
+        "delay": "Meškanie"
+    },
+    {
+        "day": "Sunday, 1. Jan, 2023",
+        "time": "08:10:00",
+        "delay": "Meškanie"
+    },
+    {
+        "day": "Sunday, 1. Jan, 2023",
+        "time": "08:10:00",
+        "delay": "Meškanie"
+    },
+    {
+        "day": "Sunday, 1. Jan, 2023",
+        "time": "07:10:00",
+        "delay": null
+    },
+    {
+        "day": "Sunday, 1. Jan, 2023",
+        "time": "07:10:00",
+        "delay": null
+    },
+    {
+        "day": "Tuesday, 7. Mar, 2023",
+        "time": "16:35:13",
+        "delay": "Meškanie"
+    },
+    {
+        "day": "Tuesday, 7. Mar, 2023",
+        "time": "16:35:19",
+        "delay": "Meškanie"
+    }
+]
