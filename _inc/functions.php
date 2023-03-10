@@ -105,26 +105,3 @@ function getLogs() {
         echo '</tr>';
     }
 }
-
-
-
-
-
-// pozeram kod a vidim ze si v gite nechal odkomentovany testovaci kod, ktory mi tym padom zobrazuje zly datum a cas na webe
-// nerozumiem uplne preco mas vsetko v header.php
-// mozno by som na riadku 75 nevracal message ale rovno ju vypisal vnutri tej funkcii
-// vo functions.php na 28 riadku nemusi byt == true , kedze ta premenna je boolean a if tym padom ma rovno odpoved bez porovnavania
-
-
-
-
-
-// sprav logovac prichodov studentov
-// - sprav zakladny php skript, ktory vypise ahoj
-// - vypis aktualny datum a cas naformatovany
-// - ukladaj aktualny datum a cas do suboru (ak uz v subore existuje datum a cas, novy cas sa pripise), kazdy zaznam daj na novy riadok
-// - getuj obsah log suboru a vypis ho
-// - sprav tie veci co tu su cez funkcie ktore budu pomenovavat co sa robi, napriklad na ziskanie dat zo suboru nazves funkciu getLogs()
-// - ak prisiel student po 8:00, tak dopis do logu za cas dopis  string "meskanie"
-// - sprav premennu v ktorej vyhodnotis ci nastalo meskanie a tuto premennu posileaj ako parameter do funkcie ktora zapisuje logy do suboru
-// - ak pride student medzi 20-24, tak vyhod chybu cez die, ze nemoze sa dany prichod zapisat
