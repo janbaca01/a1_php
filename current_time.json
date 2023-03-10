@@ -1,12 +1,21 @@
 [
     {
-        "day": "Tuesday, 7. Mar, 2023",
-        "time": "16:34:29",
+        "day": "Sunday, 1. Jan, 2023",
+        "time": "08:10:00",
         "delay": "Meškanie"
     },
     {
-        "day": "Tuesday, 7. Mar, 2023",
-        "time": "16:34:31",
+        "day": "Sunday, 1. Jan, 2023",
+        "time": "07:10:00"
+    },
+    {
+        "day": "Sunday, 1. Jan, 2023",
+        "time": "19:10:00",
+        "delay": "Meškanie"
+    },
+    {
+        "day": "Sunday, 1. Jan, 2023",
+        "time": "20:10:00",
         "delay": "Meškanie"
     },
     {
@@ -21,22 +30,55 @@
     },
     {
         "day": "Sunday, 1. Jan, 2023",
-        "time": "07:10:00",
-        "delay": null
+        "time": "08:10:00",
+        "delay": "Meškanie"
     },
     {
         "day": "Sunday, 1. Jan, 2023",
-        "time": "07:10:00",
-        "delay": null
-    },
-    {
-        "day": "Tuesday, 7. Mar, 2023",
-        "time": "16:35:13",
+        "time": "08:10:00",
         "delay": "Meškanie"
     },
     {
-        "day": "Tuesday, 7. Mar, 2023",
-        "time": "16:35:19",
+        "day": "Sunday, 1. Jan, 2023",
+        "time": "07:10:00"
+    },
+    {
+        "day": "Sunday, 1. Jan, 2023",
+        "time": "09:10:00",
         "delay": "Meškanie"
+    },
+    {
+        "day": "Sunday, 1. Jan, 2023",
+        "time": "20:10:00",
+        "delay": "Meškanie"
+    },
+    {
+        "day": "Sunday, 1. Jan, 2023",
+        "time": "20:10:00",
+        "delay": "Meškanie"
+    },
+    {
+        "day": "Friday, 10. Mar, 2023",
+        "time": "01:21:59"
+    },
+    {
+        "day": "Friday, 10. Mar, 2023",
+        "time": "01:23:28"
+    },
+    {
+        "day": "Friday, 10. Mar, 2023",
+        "time": "01:23:41"
+    },
+    {
+        "day": "Friday, 10. Mar, 2023",
+        "time": "01:23:45"
+    },
+    {
+        "day": "Friday, 10. Mar, 2023",
+        "time": "01:25:07"
+    },
+    {
+        "day": "Friday, 10. Mar, 2023",
+        "time": "01:25:12"
     }
 ]

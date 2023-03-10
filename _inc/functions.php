@@ -29,13 +29,12 @@ function setTimeToFile($day, $current_time, $delay) {
             [   
                 'day' => $day,
                 'time' => $current_time,
-                'delay' => $delay ? 'Meškanie' : null
             ]
         ]
     ];
     
-    if ($delay === '') {
-        unset($arrival['arrival'][0]['delay']);
+    if ($delay === true ) {
+        $arrival['arrival'][0]['delay'] = 'Meškanie';
     }
     
     // načítanie existujúceho obsahu súboru (ak existuje)
@@ -50,16 +49,26 @@ function setTimeToFile($day, $current_time, $delay) {
     // zápis do súboru
     $json_data = json_encode($current_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     $result = file_put_contents("current_time.json", $json_data);
+
+    // spúšťa sa funkcia die, dalej nepokračuje len sa vráti hláška príchode mimo možnosti uloženia logu
+    if ($current_time > '20:00:00' && $current_time < '23:59:59') {
+        $message = 'Je po 20:00, nie je možné zapísať príchod!';
+        die($message);
+    } 
     // spúšťa sa ak sa nepodarí zápis do logu
-    if ($result === false) {
+    elseif ($result === false) {
         $message = 'Chyba pri zápise súboru!';
     } 
     // spúšťa sa ak sa podarí zápis do logu
-    else {
+    elseif ($delay == false) {
         $message = 'Tvoj príchod na hodinu bol uložený!';
     }
-
-    return $message;
+    // spúšťa sa ak študent mešká
+    else {
+        $message = 'Tvoj príchod na hodinu bol uložený! Ale meškáš.';
+    }
+    
+    echo $message;
 }
 
 
@@ -81,7 +90,7 @@ function getLogs() {
         echo '<tr>';
         echo '<td>' . $arrive['day'] . '</td>';
         echo '<td>' . $arrive['time'] . '</td>';
-        echo '<td>' . $arrive['delay'] . '</td>';
+        echo '<td>' . (isset($arrive['delay']) ? $arrive['delay'] : '') . '</td>';
         echo '</tr>';
     }
     echo '</tbody>';
@@ -99,6 +108,12 @@ function getLogs() {
 
 
 
+
+
+// pozeram kod a vidim ze si v gite nechal odkomentovany testovaci kod, ktory mi tym padom zobrazuje zly datum a cas na webe
+// nerozumiem uplne preco mas vsetko v header.php
+// mozno by som na riadku 75 nevracal message ale rovno ju vypisal vnutri tej funkcii
+// vo functions.php na 28 riadku nemusi byt == true , kedze ta premenna je boolean a if tym padom ma rovno odpoved bez porovnavania
 
 
 
